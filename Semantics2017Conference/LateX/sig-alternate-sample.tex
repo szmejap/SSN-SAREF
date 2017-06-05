@@ -1,51 +1,44 @@
-% This is "sig-alternate.tex" V2.1 April 2013
-% This file should be compiled with V2.5 of "sig-alternate.cls" May 2012
-%
-% This example file demonstrates the use of the 'sig-alternate.cls'
-% V2.5 LaTeX2e document class file. It is for those submitting
-% articles to ACM Conference Proceedings WHO DO NOT WISH TO
-% STRICTLY ADHERE TO THE SIGS (PUBS-BOARD-ENDORSED) STYLE.
-% The 'sig-alternate.cls' file will produce a similar-looking,
-% albeit, 'tighter' paper resulting in, invariably, fewer pages.
-%
-% ----------------------------------------------------------------------------------------------------------------
-% This .tex file (and associated .cls V2.5) produces:
-%       1) The Permission Statement
-%       2) The Conference (location) Info information
-%       3) The Copyright Line with ACM data
-%       4) NO page numbers
-%
-% as against the acm_proc_article-sp.cls file which
-% DOES NOT produce 1) thru' 3) above.
-%
-% Using 'sig-alternate.cls' you have control, however, from within
-% the source .tex file, over both the CopyrightYear
-% (defaulted to 200X) and the ACM Copyright Data
-% (defaulted to X-XXXXX-XX-X/XX/XX).
-% e.g.
-% \CopyrightYear{2007} will cause 2007 to appear in the copyright line.
-% \crdata{0-12345-67-8/90/12} will cause 0-12345-67-8/90/12 to appear in the copyright line.
-%
-% ---------------------------------------------------------------------------------------------------------------
-% This .tex source is an example which *does* use
-% the .bib file (from which the .bbl file % is produced).
-% REMEMBER HOWEVER: After having produced the .bbl file,
-% and prior to final submission, you *NEED* to 'insert'
-% your .bbl file into your source .tex file so as to provide
-% ONE 'self-contained' source file.
-%
-% ================= IF YOU HAVE QUESTIONS =======================
-% Questions regarding the SIGS styles, SIGS policies and
-% procedures, Conferences etc. should be sent to
-% Adrienne Griscti (griscti@acm.org)
-%
-% Technical questions _only_ to
-% Gerald Murray (murray@hq.acm.org)
-% ===============================================================
-%
-% For tracking purposes - this is V2.0 - May 2012
-
 \documentclass{sig-alternate-05-2015}
+%\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{xparse}
+
+\usepackage{listings}
+\usepackage[dvipsnames]{xcolor} % color names
+\usepackage{moresize} % give more size options than the standard ones
+
+\lstset{
+	tabsize=1,
+	frame=lines,
+	%caption=sample caption,
+	captionpos=b,
+	%abovecaptionskip=10pt,
+	%belowcaptionskip=10pt,
+	%label=code:sample,
+	frame=shadowbox,
+	rulesepcolor=\color{gray},
+	xleftmargin=10pt,
+	%framexleftmargin=15pt,
+	identifierstyle=\color{Brown}\ttfamily,
+	%keywordstyle=\color{Green}\bf\ttfamily,
+	commentstyle=\color{OliveGreen},
+	stringstyle=\color{Brown}\ttfamily,
+	numbers=left,
+	numberstyle=\tiny,
+	numbersep=5pt,
+	%breaklines=true,
+	showstringspaces=false,
+	basicstyle=\footnotesize\ttfamily,  % or e.g., \ssmal to get small font in listings
+	morecomment=[n]{/*}{*/},
+	morekeywords={},
+	emph={for,each,if,else,then,in,is,create,IN
+	},emphstyle={\color{blue}\bf\ttfamily}
+}
+
+\newcommand{\erestr}[2]{\exists\;\,{\tt #1}\,.\,{\tt #2}}
+\DeclareDocumentCommand\node{ m g }{{\tt #1\IfNoValueF {#2} {{:}#2}}}
+
 
 
 \begin{document}
@@ -73,9 +66,9 @@
 
 %
 % --- Author Metadata here ---
+
 \conferenceinfo{SEMANTICS}{'2017 Amsterdam, The Netherlands}
-%\CopyrightYear{2007} % Allows default copyright year (20XX) to be over-ridden - IF NEED BE.
-%\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
+
 % --- End of Author Metadata ---
 
 \title{Towards IoT platforms' integration: Semantic Translations between {\ttlit W3C SSN} and {\ttlit ETSI SAREF}}
@@ -237,7 +230,7 @@ Over the last years a number of IoT ontologies were proposed to achieve semantic
 \section{BACKGROUND}
 
 \subsection{INTER-IoT semantic mediator}
-The H2020 project Interoperability of Heterogeneous IoT Platforms (INTER-IoT) [1, 2] is currently developing the  Inter-Platform Semantic Mediator (IPSM) tool. The following tasks are executed as part of the IPSM design and implementationto:  (2) develop a central modular ontology, consisting of a core IoT ontology and domain specific modules, (3) preparealignments between ontologies of communicating artefacts and the central ontology,  (4) use the alignments for translations, and (5) establish a multi-channel (1-1, 1-many, many-1) communication architecture that will facilitate translations in all needed contexts. While complete ontologies are used to “build semantic understanding”, only conversation-specific alignments are stored and used for actual translations. Figure X illustrates IPSM architecture. Ontology alignments and translation channels can be managed and ontology reconciliation  through the REST Manager.
+The H2020 project Interoperability of Heterogeneous IoT Platforms (INTER-IoT) [1, 2] is currently developing the  Inter-Platform Semantic Mediator (IPSM) tool. The following tasks are executed as part of the IPSM design and implementationto:  (2) develop a central modular ontology, consisting of a core IoT ontology and domain specific modules, (3) preparealignments between ontologies of communicating artefacts and the central ontology,  (4) use the alignments for translations, and (5) establish a multi-channel (1-1, 1-many, many-1) communication architecture that will facilitate translations in all needed contexts. While complete ontologies are used to “build semantic understanding”, only conversation-specific alignments are stored and used for actual translations. Figure \ref{fig:IPSM} illustrates IPSM architecture. Ontology alignments and translation channels can be managed and ontology reconciliation  through the REST Manager.
 
 IPSM core: Channel Manager, Semantic Translation Channels, Alignment Applicators \\
 IPSM alignments repository: I/O Alignments, Converters \\
@@ -245,10 +238,11 @@ IPSM communication infrastructure: Communication channels, Semantic Annotators \
 
 INTER-IoT.D4.1[Figure 107: Functional Components of the INTER-IoT RA with the components of the Data and Semantics interoperability layer of the INTER-LAYER\\
 
-\begin{figure}
+\begin{figure}[h!]
 \centering
-\includegraphics[height=1in, width=1in]{fly}
+\includegraphics[scale=0.22]{IPSM}
 \caption{Inter-Platform Semantic Mediator}
+\label{fig:IPSM}
 \end{figure}
 
 Ontology alignment – semantic translations [3]
@@ -259,7 +253,7 @@ Semantic translation supported by IPSM uses ontology alignments that are specifi
 \subsection{W3C Semantic Sensor Network}
 The SSN ontology is an ontology developed by W3C and the last version was published in 2011 in the official URL (https://www.w3.org/2005/Incubator/ssn/ssnx/ssn). It provides a framework to describe sensors, devices, observations and related concepts, enabling reasoning either about individual sensors as well as about the connection of a set of sensors. 
 
-A ‘sensing device’ is a sensor that reports measurements and observations of real world phenomena. A sensor is different in nature from other types of devices, e.g. actuators, because of its event-based behavior, which requires temporal relationships. SSN enables reasoning about the measurements that can ease the development of advanced applications, for example by reasoning about sensor measurements, considering constraints as power restriction and limited memory. 
+A \textit{Sensing Device} is a sensor that reports measurements and observations of real world phenomena. A sensor is different in nature from other types of devices, e.g. actuators, because of its event-based behavior, which requires temporal relationships. SSN enables reasoning about the measurements that can ease the development of advanced applications, for example by reasoning about sensor measurements, considering constraints as power restriction and limited memory. 
 
 The SSN ontology is composed of modules and is grounded in the foundational ontology DOLCE Ultra-Light (DUL). The modules we are covering in this paper are the following:
 DUL module: represents the foundational categorization of Designed Artifact, Method, Physical Object, Quality, Region and Situation.  
@@ -279,10 +273,21 @@ Observation module: represents a situation with a discrete time instant or a per
 Device module: device
 
 The W3C SSN Incubator Group created an example of the use of SSN by describing the Vaisala WM30 wind sensor (https://www.w3.org/2005/Incubator/ssn/ssnx/meteo/WM30.html). It describes the measurement capabilities, power supply and operating and survival properties based on the technical specification about the measurement of wind direction and speed. This example was initially reported in [4], which gives a precise description of the WM30 sensor. However, the axioms representing its main definitions and restrictions are different, following the changes in the TBox of SSN over the past years. Bellow we update these main definitions:
-\\
 
-
-
+\begin{align*}
+  \begin{aligned}
+	&\node{WM30}{Vaisala\_WM30} \sqsubseteq \node{ssn}{SensingDevice}\\
+	&\node{WM30}{Vaisala\_WM30} \sqsubseteq\\
+	&\qquad\erestr{\node{ssn}{hasSubSystem}}{\node{WM\_30}{WM30\_WindDirection}}\\
+	&\node{WM30}{Vaisala\_WM30} \sqsubseteq\\
+	&\qquad\erestr{\node{ssn}{hasSubSystem}}{\node{WM\_30}{WM30\_WindSpeed}}\\	
+	&\node{WM30}{Vaisala\_WM30} \sqsubseteq\\
+	&\qquad\erestr{\node{ssn}{observes}}{\node{WM\_30}{WM30\_WinDirection}}\\
+	&\node{WM30}{Vaisala\_WM30} \sqsubseteq\\
+	&\qquad\erestr{\node{ssn}{observes}}{\node{WM\_30}{WM30\_WindSpeed}}\\
+  \end{aligned}\\
+\end{align*}
+These axioms represent the Vaisala WM30 as a Sensing Device (therefore a Device (System) and a Sensor), composed by (has subsystem) WM30 particular sensors for wind direction and wind speed, being able to measure (observes) wind direction (WM30\_WindDirection) and speed (WM30\_WindSpeed). 
 
 \subsection{ETSI Smart Appliances REFerence}
 The SAREF ontology [5] is a reference model that facilitates the matching of existing assets, e.g. standards, ontologies, data models and protocols, in the smart appliances domain. 
@@ -309,12 +314,13 @@ This approach enables to (re)use the specification for different strategies of o
 
 As first evaluation of this specification, we simulate an unidirectional semantic translation from WM30 ontology, represented as an extension of SSN, to an ontology represented as SAREF. In general, the result from the translations must represent the WM30 wind sensor with SAREF, keeping similar semantics of the original. 
 
-Therefore, the goal of this evaluation is to check the semantic similarity between the original and the final ontologies. Here we used an approach based on competency questions to measure this similarity. A list of competency questions is presented and each question is responded by querying the elements (classes, properties and instances) of both ontologies. The responses are compared to verify whether the semantics is maintained after executing the translation. Intentionally, the competency questions were conceived according to the expressiveness of the SSN WM30 ontology, targeting its main elements, as the different measurement capabilities illustrated in the technical specifications (Figure X).
+Therefore, the goal of this evaluation is to check the semantic similarity between the original and the final ontologies. Here we used an approach based on competency questions to measure this similarity. A list of competency questions is presented and each question is responded by querying the elements (classes, properties and instances) of both ontologies. The responses are compared to verify whether the semantics is maintained after executing the translation. Intentionally, the competency questions were conceived according to the expressiveness of the SSN WM30 ontology, targeting its main elements, as the different measurement capabilities illustrated in the technical specifications (Figure \ref{fig:WM30specifications}).
 
-\begin{figure}
+\begin{figure}[h!]
 \centering
-\includegraphics[height=1in, width=1in]{WM30specifications}
-\caption{Inter-Platform Semantic Mediator}
+\includegraphics[scale=0.22]{WM30specifications}
+\caption{The specification of WM30 wind sensor}
+\label{fig:WM30specifications}
 \end{figure}
 
 Competency questions: 
@@ -326,71 +332,124 @@ Competency questions:
 \\CQ07. What are the ranges of accuracy and condition ranges  constraints differentiate these types of wind speed sensors?
 \\CQ08. What is the characteristic transfer function of WM30?
 
-
-
 \section{SEMANTIC TRANSLATIONS}
 
-\subsection{Mappings}
-Mappings between SSN and SAREF were specified through an ontological analysis of their TBox, i.e. concepts and roles definitions (predicates) with logical operations. A study was made on how SSN and SAREF describe the characteristics of sensors and their measurements. 
+\subsection{Mappings: SSN to SAREF}
+Mappings between SSN and SAREF were specified through an ontological analysis of their TBox, i.e. concepts and roles definitions (predicates) with logical operations. A study was made on how SSN and SAREF describe the characteristics of sensors, including their capabilities of observation. The mappings follow a logic sequence according to the main elements and similar structures of SSN and SAREF. 
 
-The mappings follow a logic sequence according to the main elements and similar structures of SSN and SAREF. Here we detail only the mappings from SSN to SAREF because of space limitation – the other direction, from SAREF to SSN, will be reported in the future. For each mapping a code snippet is presented, as a pseudo-code, to illustrate the creation of the ontology based on SAREF.
+Here we detail only the mappings from SSN to SAREF because of space limitation – the other direction, from SAREF to SSN, will be reported in the future. For each mapping a code snippet is presented, as a pseudocode, to illustrate the creation of the ontology using SAREF. While the main element in SSN is the \textit{Sensing Device}, which is a subclass of \textit{Device} and \textit{Sensor}, in SAREF the main element is \textit{Device}, which can be specialized as a \textit{Sensor} related to \textit{Sensing Function}. 
 
-While the main element in SSN is the Sensing Device, which is a subclass of Device and Sensor, in SAREF the main element is Device. 
+\subsubsection{M01. ssn:SensingDevice -> saref:Sensor}
+The characteristics of \textit{ssn:SensingDevice}, inherited from \textit{ssn:Sensor} and \textit{ssn:System}, is mapped to \textit{saref:Sensor}, which inherits \textit{saref:Device} properties, including the relationship with the \textit{saref:SensingFunction} (\textit{saref:hasFunction}). The code snippet below illustrates this mapping. 
 
-M01: The characteristics of ssn:SensingDevice, inherited from ssn:Sensor and ssn:System, is mapped to saref:Sensor, which inherits saref:Device properties, including the relationship with the saref:SensingFunction (saref:hasFunction). The code snippet below illustrates this mapping.   
+\begin{lstlisting}[caption={Pseudocode snippet for M01},label={code:sample}]
+IN: {ssn_sensingDevice}  
+create saref_sensor = saref:Sensor  
 
-<CS01>Code snippet 01
+/* Copy all rdfs properties */ 
+saref_sensor.rdfs:* = ssn_sensingDevice.rdfs:*
+    
+create saref_function = saref:SensingFunction  
+create saref_hasFunction = saref:hasFunction  
+create saref_sensor saref_hasFunction saref_function  
 
-Figure X illustrates the elements involved in this mapping. Notice that, indirectly, this mapping also transforms from ssn:Sensor to saref:Sensor.
+\end{lstlisting}
 
-\begin{figure}
+Figure \ref{fig:SSN_SAREF_SensingDevice_Device} illustrates the elements involved in this mapping. Notice that, indirectly, this mapping also transforms from \textit{ssn:Sensor} to \textit{saref:Sensor}.
+
+\begin{figure}[h!]
 \centering
-\includegraphics[height=1in, width=1in]{SSN_SAREF_SensingDevice_Device}
-\caption{Inter-Platform Semantic Mediator}
+\includegraphics[scale=0.28]{SSN_SAREF_SensingDevice_Device}
+\caption{Main elements of SSN and SAREF}
+\label{fig:SSN_SAREF_SensingDevice_Device}
 \end{figure}
 
+\subsubsection{M02. ssn:hasSubSystem -> saref:consistsOf}
+Once executing M01, the next step is to check the composition relationship of a device, i.e. the components that are part of a device, which are characterized by both SSN and SAREF. In SSN, the object property \textit{ssn:hasSubSystem} relating two \textit{ssn:System} represents this relationship. In SAREF, the object property \textit{saref:consistsOf} plays this role, relating two \textit{saref:Device} in a similar way, both illustrated in Figure \ref{fig:SSN_SAREF_SensingDevice_Device} as a self-relationship. Therefore, when \textit{ssn:hasSubSystem} is used between the \textit{ssn\_sensingDevice} (from M01) and a \textit{ssn:System}, which must be a \textit{ssn:Device} or a \textit{ssn:SensingDevice}, then it is mapped to \textit{saref:consistsOf} object property of the \textit{saref\_sensor} (created in M01). If the device component is a \textit{ssn:SensingDevice}, then a recursive algorithm is used by applying M01 to it. If the device component is a \textit{ssn:Device}, then it is created a \textit{saref:Device}. The code snippet below illustrates this mapping.
 
-M02: Once executing M01, the next step is to check the composition relationship of a device, i.e. the components that are part of a device, which are characterized by both SSN and SAREF. In SSN, the object property ssn:hasSubSystem relating two ssn:System represents this relationship. In SAREF, the object property saref:consistsOf plays this role, relating two saref:Device in a similar way, both illustrated in Figure X as a self-relationship. 
+\begin{lstlisting}[caption={Pseudocode snippet for M02},label={code:sample}]
+IN: {ssn_sensingDevice, saref_sensor}
+for each ssn_system in ssn_sensingDevice.ssn:hasSubSystem 
+{ 
+  create saref_device_component = saref:Device 
+  if ssn_system is ssn:SensingDevice then 
+  { 
+    /* transform saref:Device to saref:Sensor */
+    saref_device_component = Map(M01, ssn_system) 
+  } 
+  else 
+  if ssn_system is ssn:Device then 
+  { 
+    /* Copy all rdfs properties */ 
+    saref_device_component.rdfs:* = ssn_system.rdfs:* 
+  } 
+  create saref_consistsOf = saref:consistsOf 
+  create saref_sensor saref_consistsOf saref_device_component 
+}
+\end{lstlisting}
 
-Therefore, when ssn:hasSubSystem is used between the ssn\_sensingDevice (from M01) and a ssn:System, which must be a ssn:Device or a ssn:SensingDevice, then it is mapped to saref:consistsOf object property of the saref\_sensor (from M01). If the device component is a ssn:SensingDevice, then a recursive algorithm is used by applying M01 to it. If the device component is a ssn:Device, then it is created a saref:Device. The code snippet below illustrates this mapping.
+\subsubsection{M03. ssn:observes -> saref:measuresProperty}
+Once executing M01 and M02, the next step is to map the measurement property which the sensor is able to observe, i.e. the measurement property of a sensor. For example, a wind sensor is able to observe both wind direction and wind speed. Therefore, the \textit{ssn:observes} of a \textit{ssn:SensingDevice} is mapped to \textit{saref:measuresProperty} of a \textit{saref:Device}. These object properties relates to \textit{ssn:Property} and \textit{saref:Property}, respectively. Therefore, this mapping also includes the creation, if not exists, of the \textit{ssn:Property}. At last, this mapping needs to create the relationship back from the \textit{saref:Property} to the \textit{saref:Device} through the object property \textit{saref:isMeasuredByDevice}. The code snippet below illustrates this mapping. 
 
-<CS02>Code snippet 02
-
-M03: ssn:observes  saref:measuresProperty
-Ssn:Property  saref:Property
-
-M04: ssn:MeasurementCapability
-saref:UnitOfMeasure + saref:Property
-
-M05: ssn:Sensing (ssn:Process)
-saref:SensingFunction
+\begin{lstlisting}[caption={Pseudocode snippet for M02},label={code:sample}]
+IN: {ssn_sensingDevice, saref_sensor}
+for each ssn_property in ssn_sensingDevice.ssn:observes 
+{ 
+  create saref_property = saref:Property 
+  
+  saref_property = GetPropertyInSAREF(ssn_property)
+    
+  /* check if the property already exists */
+  if saref_property is null then 
+  { 
+    /* Copy all rdfs properties */ 
+    saref_property.rdfs:* = ssn_property.rdfs:* 
+  } 
+  create saref_measuresProperty = saref:measuresProperty 
+  create saref_sensor saref_measuresProperty saref_property 
+  
+  create saref_isMeasuredByDevice = saref:isMeasuredByDevice
+  create saref_property saref_isMeasuredByDevice saref_sensor
+}
+\end{lstlisting}
 
 \subsection{Evaluation}
-The translation output, i.e. the WM30 ontology according to SAREF, in OWL, is available in (github link). For each question, at first we answer based on the original (SSN) and, then, we answer the same question for the final (SAREF). Second, we compare whether the semantics of the response is similar to each other, ranking this similarity with four possible values: (1) cannot answer; (2) semantics is lost, representing an important gap; (3) semantics is lost, but covers the main elements; (4) semantics is totally maintained. At last, the ranks are summed and the overall maintained semantics is calculated.
+As described in the methodology section, an execution of the mappings presented above was simulated having the WM30 wind sensor example (according to SSN) as input. The output of this translation, i.e. the WM30 ontology according to SAREF, in OWL, was produced and made available (\url{https://github.com/jonimoreira/SSN-SAREF}). The answers of the competency questions, listed in methodology section, were produced by navigating and querying (SPARQL) this generated ontology with support of an ontology editor (Protegé and TopBraid Composer). 
 
-To respond each question it was used an ontology editor (Protegé and TopBraid Composer Free) to navigate and/or query (SPARQL) over the ontology. 
+For each question, at first we answered the question based on the original ontology (in SSN) and, then, we answered the same question for the generated ontology (SAREF). Second, we compare whether the semantics of the response is similar to each other, ranking this similarity with four possible values: (1) cannot answer; (2) semantics is lost, representing an important gap; (3) semantics is lost, but covers the main elements; (4) semantics is totally maintained. At last, the ranks are summed and the overall maintained semantics is calculated.
+The competency questions were responded as follows:
 
-Responding the competency questions:
-CQ01. In the original ontology (SSN), the main characteristics of the Vaisala WM30 sensor can be extracted by starting the navigation in the WM30:Vaisala\_WM30 element, which is a ssn:SensingDevice, inheriting the properties from ssn:Device and ssn:Sensor. Besides, the rdfs:comment with a general description of this wind sensor, it represents that the sensor is composed by two sensors (WM30:WM30\_WindDirection and WM30:WM30\_WindSpeed), one for wind direction and another for wind speed (both ssn:Sensor). Moreover, WM30 can observe (measure) the types (properties) WM30:WindDirection and WM30:WindSpeed (both ssn:Property). Figure X illustrates these properties.
+\textbf{CQ01.} In the original ontology (SSN), the main characteristics of the Vaisala WM30 sensor can be extracted by starting the navigation in the \textit{WM30:Vaisala\_WM30} element, which is a \textit{ssn:SensingDevice}, inheriting the properties from \textit{ssn:Device} and \textit{ssn:Sensor}. Besides, the \textit{rdfs:comment} with a general description of this wind sensor, it represents that the sensor is composed by two sensors (\textit{WM30:WM30\_WindDirection} and \textit{WM30:WM30\_WindSpeed)}, one for wind direction and another for wind speed (both \textit{ssn:Sensor}). Moreover, WM30 sensor can measure (observe) the types (properties) \textit{WM30:WindDirection} and \textit{WM30:WindSpeed} (both \textit{ssn:Property}). Figure \ref{fig:SSN_SystemProperties} illustrates these properties.
 
-\begin{figure}
+\begin{figure}[h!]
 \centering
-\includegraphics[height=1in, width=1in]{SSN_SystemProperties}
-\caption{Inter-Platform Semantic Mediator}
+\includegraphics[scale=0.98]{SSN_SystemProperties}
+\caption{Vaisala WM30 \textit{Sensing Device}} (SSN)
+\label{fig:SSN_SystemProperties}
 \end{figure}
 
-In the generated ontology (SAREF), according to M01, WM30:Vaisala\_WM30 element is created as a saref:Sensor. A saref:SensingFunction (subclass or instance?) is created and the WM30:Vaisala\_WM30 element linked to it. 
+In the generated ontology (SAREF), according to M01, \textit{WM30:Vaisala\_WM30} element is created as a \textit{saref:Sensor}. A \textit{saref:SensingFunction} is created and the \textit{WM30:Vaisala\_WM30} element linked to it through \textit{saref:hasFunction} property. According to M02, the composition of the sensor \textit{WM30:Vaisala\_WM30} is derived from the \textit{ssn:hasSubSystem} properties, i.e. \textit{WM30:WM30\_WindDirection} and \textit{WM30:WM30\_WindSpeed}, as depict in Figure \ref{fig:SSN_SystemProperties}. M03 produced the measurement properties of the sensor from the \textit{ssn:observes element}, i.e. \textit{saref:measuresProperty} to \textit{WM30:WindDirection} and \textit{WM30:WindSpeed}. Figure \ref{fig:SSN_SystemProperties} illustrates the result \textit{WM30:Vaisala\_WM30)} as a \textit{saref:Sensor}. Therefore, by navigating to \textit{WM30:Vaisala_WM30} (\textit{saref:Sensor}) it is possible to respond this competency question in a similar way from the original, i.e. the semantics is completely maintained, ranked as 4.  
 
-Some issues were detected in this example:
-\\First, saref:Sensor provides subclasses that are types of sensors, as saref:SmokeSensor and saref:TemperatureSensor, which have the properties of saref:hasFunction and saref:measuresProperty, linking the type of the sensor with functions it has and the type of property it measures, in these cases saref:Smoke and saref:Temperature, respectively. The correct implementation for the wind sensor would create the subclass saref:WindSensor, with function sensing and measuring the properties of wind direction and wind speed. 
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.98]{SAREF_Sensor_WM30}
+\caption{Vaisala WM30 \textit{Sensing Device} (SAREF)}
+\label{fig:SAREF_Sensor_WM30}
+\end{figure}
 
-Mappings M01 supported the creation of these elements.
+\textbf{CQ02.} In the original ontology (SSN), the composition of Vaisala WM30 sensor can be extracted by navigating from the \textit{WM30:Vaisala\_WM30} element to the \textit{ssn:hasSubSystem} properties, i.e. \textit{WM30:WM30\_WindDirection} and \textit{WM30:WM30\_WindSpeed}, both \textit{ssn:Sensor}. In particular, the WM30 wind direction sensor (\textit{WM30:WM30\_WindDirection}) can have one wiper (\textit{WM30:WMS301}) or two (\textit{WM30:WMS302}), which has greater measurement range. The same structure is generated in SAREF, resulted from M02, having \textit{WM30:WM30\_WindDirection} and \textit{WM30:WM30\_WindSpeed} created as \textit{saref:Device}, linked through the object property \textit{saref:consistsOf}. It is possible to achieve the same structure of \textit{WM30:WM30\_WindDirection} and \textit{WM30:WM30\_WindSpeed}, including the specialization to one or two wipes, by navigating from \textit{WM30:Vaisala\_WM30} (\textit{saref:Sensor}) through \textit{saref:consistsOf}. Therefore, this competency question is responded in a similar way from the original, i.e. the semantics is completely maintained, ranked as 4.
 
-CQ02.
+\textbf{CQ03.} In the original ontology (SSN), the measurement properties of Vaisala WM30 sensor can be extracted by navigating from the \textit{WM30:Vaisala\_WM30} element to the ssn:observes properties, i.e. \textit{WM30:WindDirection} and \textit{WM30:WindSpeed}, both \textit{ssn:Property}. WM30 original example also uses an ontology of Quantity Kinds (\url{http://purl.oclc.org/NET/ssnx/qu}) through the element \textit{qu:QuantityKind} as \textit{ssn:Property}. This element provides a taxonomy of quality dimensions, making use of \textit{dim:Angle} for \textit{WM30:WindDirection} and \textit{dim:VelocityOrSpeed} for \textit{WM30:WindSpeed}. The same structure is generated in SAREF, resulted from M03, as \textit{saref:Property}. Therefore, similar to CQ01 and CQ02, the semantics is completely maintained, ranked as 4.
 
-CQ03.
+\textbf{CQ04.} In the original ontology (SSN), ...
+This question couldn't be responded with the generated ontology because there are no mappings from ssn:hasMeasurementCapability and this conceptualization  is a gap in SAREF.  
 
-CQ04.
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.87]{SSN_MeasurementCapability}
+\caption{Vaisala WM30 \textit{Sensing Device}} 
+\label{fig:SSN_MeasurementCapability}
+\end{figure}
 
 CQ05.
 
@@ -399,9 +458,19 @@ CQ06.
 CQ07. 
 
 \subsection{Discussion}
+
+Some issues were detected in this example:
+\\First, saref:Sensor provides subclasses that are types of sensors, as saref:SmokeSensor and saref:TemperatureSensor, which have the properties of saref:hasFunction and saref:measuresProperty, linking the type of the sensor with functions it has and the type of property it measures, in these cases saref:Smoke and saref:Temperature, respectively. The correct implementation for the wind sensor would create the subclass saref:WindSensor, with function sensing and measuring the properties of wind direction and wind speed. 
+
+
 SSN: why ssn:Sensor is not a ssn:System? At first, the dc:source property of ssn:Sensor states that: “allows sensors, methods, instruments, systems, algorithms and process chains as the process used of an observation (…) they are all grouped under the term sensor”. Second, by having ssn:Sensor as sub class of ssn:System, it inherits the composition relationship (ssn:hasSubSystem) and, thus, can represent a set of sensors.  
 
 The problem when transforming WM30:WM30\_WindDirection as ssn:Sensor 
+
+saref:WindSensor
+WM30:WindSensingFunction
+
+
 
 \section{CONCLUSIONS}
 
