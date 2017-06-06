@@ -4,10 +4,12 @@
 \usepackage{amsmath}
 \usepackage{xparse}
 
-\usepackage{listings}
 \usepackage[dvipsnames]{xcolor} % color names
 \usepackage{moresize} % give more size options than the standard ones
+\usepackage{hyperref}
+\usepackage[inline]{enumitem}
 
+\usepackage{listings}
 \lstset{
 	tabsize=2,
 	frame=lines,
@@ -32,6 +34,8 @@
 	basicstyle=\footnotesize\ttfamily,  % or e.g., \ssmal to get small font in listings
 	morecomment=[n]{/*}{*/},
 	morekeywords={},
+	breaklines=true,
+	postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
 	emph={for,each,if,else,then,in,is,create,IN
 	},emphstyle={\color{blue}\bf\ttfamily}
 }
@@ -207,13 +211,28 @@ Section 2 describes the background research, including an overview of the IPSM a
 \section{BACKGROUND}
 
 \subsection{INTER-IoT semantic mediator}
-The H2020 project Interoperability of Heterogeneous IoT Platforms (INTER-IoT) \cite{Ganzha2016,Ganzha2017a} is currently developing the  Inter-Platform Semantic Mediator (IPSM) tool. The following tasks are executed as part of the IPSM design and implementationto:  (2) develop a central modular ontology, consisting of a core IoT ontology and domain specific modules, (3) preparealignments between ontologies of communicating artefacts and the central ontology,  (4) use the alignments for translations, and (5) establish a multi-channel (1-1, 1-many, many-1) communication architecture that will facilitate translations in all needed contexts. While complete ontologies are used to “build semantic understanding”, only conversation-specific alignments are stored and used for actual translations. Figure \ref{fig:IPSM} illustrates IPSM architecture. Ontology alignments and translation channels can be managed and ontology reconciliation  through the REST Manager.
+The H2020 project Interoperability of Heterogeneous IoT Platforms (INTER-IoT) \cite{Ganzha2016,Ganzha2017a} is currently developing the  Inter-Platform Semantic Mediator (IPSM) tool. IPSM is a software tool that follows semantic interoperability design patterns identified in INTER-IoT, and is intended to be used as part of translation process defined in the methodology (INTER-Meth). The process of achieving semantic interoperability involves the following steps:
 
-IPSM core: Channel Manager, Semantic Translation Channels, Alignment Applicators \\
-IPSM alignments repository: I/O Alignments, Converters \\
-IPSM communication infrastructure: Communication channels, Semantic Annotators \\
+\begin{enumerate*}[label=\roman*)]
+	\item lift semantics to a common format and make it explicit \cite{Ganzha2017a}
+	\item develop, or choose, a central modular ontology
+	\item prepare uni-directional alignments between ontologies of communicating artifacts and the central ontology
+	\item establish a multi-channel (1-1, 1-many, many-1) communication architecture that will facilitate translations in all needed contexts, with the central ontology as an intermediary
+\end{enumerate*}
 
-INTER-IoT.D4.1[Figure 107: Functional Components of the INTER-IoT RA with the components of the Data and Semantics interoperability layer of the INTER-LAYER\\
+%The following tasks are executed as part of the IPSM design and implementation to:  (2) develop a central modular ontology, consisting of a core IoT ontology and domain specific modules, (3) preparealignments between ontologies of communicating artefacts and the central ontology,  (4) use the alignments for translations, and (5) establish a multi-channel (1-1, 1-many, many-1) communication architecture that will facilitate translations in all needed contexts.
+
+INTER-IoT provides its own alignment format~\cite{Pawlowski2017}, based on alignment API, to represent interconnections between semantic data with a given ontology. IPSM utilizes alignment files and provides a multi-channel environment for any willing artifact. Pairs of uni-directional alignments between the central ontology and artifact ontology are used to translate messages to and from the central ontology. This enables connection of new artifacts without upsetting existing channels, and requires each participant to provide only a pair of alignments.
+
+While complete ontologies are used to “build semantic understanding”, only conversation-specific alignments are stored and used for actual translations. Figure \ref{fig:IPSM} illustrates IPSM architecture. Ontology alignments and translation channels can be managed through the REST Manager.
+
+%IPSM core: Channel Manager, Semantic Translation Channels, Alignment Applicators \\
+%IPSM alignments repository: I/O Alignments, Converters \\
+%IPSM communication infrastructure: Communication channels, Semantic Annotators \\
+
+%and ontology reconciliation
+
+%INTER-IoT.D4.1[Figure 107: Functional Components of the INTER-IoT RA with the components of the Data and Semantics interoperability layer of the INTER-LAYER\\
 
 \begin{figure}[h!]
 \centering
@@ -222,10 +241,7 @@ INTER-IoT.D4.1[Figure 107: Functional Components of the INTER-IoT RA with the co
 \label{fig:IPSM}
 \end{figure}
 
-Ontology alignment – semantic translations [3]
-
-Semantic translation supported by IPSM uses ontology alignments that are specified in a dedicated format….. 
-
+%Ontology alignment – semantic translations [3]
 
 \subsection{W3C Semantic Sensor Network (SSN)}
 The SSN ontology \cite{Compton2012} is an ontology developed by W3C and the last version was published in 2011 in the official URL (\url{https://www.w3.org/2005/Incubator/ssn/ssnx/ssn}). It provides a framework to describe sensors, devices, observations and related concepts, enabling reasoning either about individual sensors as well as about the connection of a set of sensors. 
@@ -413,7 +429,7 @@ In the generated ontology (SAREF), according to M01, \textit{WM30:Vaisala\_WM30}
 \textbf{CQ03.} In the original ontology (SSN), the measurement properties of Vaisala WM30 sensor can be extracted by navigating from the \textit{WM30:Vaisala\_WM30} element through the \textit{ssn:observes} properties, i.e. \textit{WM30:WindDirection} and \textit{WM30:WindSpeed}, both \textit{ssn:Property}. WM30 original example also uses an ontology of Quantity Kinds (\url{http://purl.oclc.org/NET/ssnx/qu}) through the element \textit{qu:QuantityKind} as \textit{ssn:Property}. This element provides a taxonomy of quality dimensions, making use of \textit{dim:Angle} for \textit{WM30:WindDirection} and \textit{dim:VelocityOrSpeed} for \textit{WM30:WindSpeed}. The same structure is generated in SAREF, resulted from M03, as \textit{saref:Property}. Therefore, similar to CQ01 and CQ02, the semantics is completely maintained.
 
 \textbf{CQ04.} The specification of the WMS30 wind direction sensor (Figure \ref{fig:WM30specifications}) describes the accuracy, delay distance, starting threshold and damping ratio of this sensor. For example, accuracy can vary from -3 to 3 degrees, while the delay distance is 0.6 meters and the starting threshold is lower than 1.0 m/s. 
-In the original ontology (SSN), the measurement capabilities of each wind direction and speed components  of Vaisala WM30 sensor can be extracted by navigating from the \textit{WM30:Vaisala\_WM30} element through the \textit{ssn:hasSubSystem} properties, i.e. \textit{WM30:WM30\_WindDirection} and \textit{WM30:WM30\_WindSpeed}, both \textit{ssn:Sensor}, as described in CQ02. The WM30 wind direction sensor with one wiper (\textit{WM30:WMS301}) has measurement capability (\textit{ssn:hasMeasurementCapability}) a  \textit{WM30:WM30\_WindDirection\_MeasurementCapability\_WMS301} (similar for \textit{WM30:WMS302}). A \textit{WM30:WM30\_WindDirection\_MeasurementCapability\_WMS301} is a \textit{WM30:WM30\_WindDirection\_MeasurementCapability}, which describes the ranges supported (restrictions) for accuracy, delay distance, starting threshold and damping ratio, illustrated in the axioms of Figure \ref{fig:SSN_MeasurementCapability}. \texit{ssn:MeasurementCapability} is a \textit{ssn:Property}. 
+In the original ontology (SSN), the measurement capabilities of each wind direction and speed components  of Vaisala WM30 sensor can be extracted by navigating from the \textit{WM30:Vaisala\_WM30} element through the \textit{ssn:hasSubSystem} properties, i.e. \textit{WM30:WM30\_WindDirection} and \textit{WM30:WM30\_WindSpeed}, both \textit{ssn:Sensor}, as described in CQ02. The WM30 wind direction sensor with one wiper (\textit{WM30:WMS301}) has measurement capability (\textit{ssn:hasMeasurementCapability}) a  \textit{WM30:WM30\_WindDirection\_MeasurementCapability\_WMS301} (similar for \textit{WM30:WMS302}). A \textit{WM30:WM30\_WindDirection\_MeasurementCapability\_WMS301} is a \textit{WM30:WM30\_WindDirection\_MeasurementCapability}, which describes the ranges supported (restrictions) for accuracy, delay distance, starting threshold and damping ratio, illustrated in the axioms of Figure \ref{fig:SSN_MeasurementCapability}. \textit{ssn:MeasurementCapability} is a \textit{ssn:Property}. 
 
 \begin{figure}[h!]
 \centering
@@ -436,7 +452,7 @@ A conceptual issue in SSN was identified regarding the element ssn:Sensor. The d
 
 One issue identified in WM30 ontology regards the \textit{WM30:Vaisala\_WM30} composition of wind direction and speed sensors. Both \textit{WM30:WM30\_WindDirection} and \textit{WM30:WM30\_WindSpeed} are \textit{ssn:Sensor}, but the composition relationship (\textit{ssn:hasSubSystem}) is applied from a \textit{ssn:System} to a \textit{ssn:System}. Since \textit{ssn:Sensor} is not a \textit{ssn:System}, thus the mapping M02 should consider not only \textit{ssn:System} within \textit{ssn:hasSubSystem} property. 
 
-A practical issue when mapping to SAREF is to consider extending the taxonomy of sensor "types" by creating a new element when the type does not exist in SAREF. For example, smoke and temperature sensors are classified as \textit{saref:SmokeSensor} and \texit{saref:TemperatureSensor,} respectively, having  function (\textit{saref:hasFunction}) and measure property (\textit{saref:measuresProperty}), linking the type of the sensor with functions it has and the type of property it measures (\texit{saref:Smoke} and \textit{saref:Temperature}. Thus, in our example, the correct implementation for the wind sensor is to create the subclass \textit{saref:WindSensor}, with function sensing and measuring the properties of wind direction and wind speed, which is guaranteed by M01 \cite{bowman:reasoning,
+A practical issue when mapping to SAREF is to consider extending the taxonomy of sensor "types" by creating a new element when the type does not exist in SAREF. For example, smoke and temperature sensors are classified as \textit{saref:SmokeSensor} and \textit{saref:TemperatureSensor,} respectively, having  function (\textit{saref:hasFunction}) and measure property (\textit{saref:measuresProperty}), linking the type of the sensor with functions it has and the type of property it measures (\textit{saref:Smoke} and \textit{saref:Temperature}. Thus, in our example, the correct implementation for the wind sensor is to create the subclass \textit{saref:WindSensor}, with function sensing and measuring the properties of wind direction and wind speed, which is guaranteed by M01 \cite{bowman:reasoning,
 clark:pct, braams:babel, herlihy:methodology}. 
 
 
@@ -449,8 +465,8 @@ From this initial iteration on the development of the bi-directional semantic tr
 
 
 %ACKNOWLEDGMENTS are optional
-\section{Acknowledgments}
-This section is optional.
+%\section{Acknowledgments}
+%This section is optional.
 
 %
 % The following two commands are all you need in the
