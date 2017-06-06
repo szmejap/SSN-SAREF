@@ -1,5 +1,5 @@
 \documentclass{sig-alternate-05-2015}
-%\documentclass{article}
+
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{xparse}
@@ -9,7 +9,7 @@
 \usepackage{moresize} % give more size options than the standard ones
 
 \lstset{
-	tabsize=1,
+	tabsize=2,
 	frame=lines,
 	%caption=sample caption,
 	captionpos=b,
@@ -71,37 +71,10 @@
 
 % --- End of Author Metadata ---
 
-\title{Towards IoT platforms' integration: Semantic Translations between {\ttlit W3C SSN} and {\ttlit ETSI SAREF}}
-
-%
-% You need the command \numberofauthors to handle the 'placement
-% and alignment' of the authors beneath the title.
-%
-% For aesthetic reasons, we recommend 'three authors at a time'
-% i.e. three 'name/affiliation blocks' be placed beneath the title.
-%
-% NOTE: You are NOT restricted in how many 'rows' of
-% "name/affiliations" may appear. We just ask that you restrict
-% the number of 'columns' to three.
-%
-% Because of the available 'opening page real-estate'
-% we ask you to refrain from putting more than six authors
-% (two rows with three columns) beneath the article title.
-% More than six makes the first-page appear very cluttered indeed.
-%
-% Use the \alignauthor commands to handle the names
-% and affiliations for an 'aesthetic maximum' of six authors.
-% Add names, affiliations, addresses for
-% the seventh etc. author(s) as the argument for the
-% \additionalauthors command.
-% These 'additional authors' will be output/set for you
-% without further effort on your part as the last section in
-% the body of your article BEFORE References or any Appendices.
+\title{Towards IoT platforms' integration: Semantic Translations between {\ttlit W3C SSN} and {\ttlit SAREF}}
 
 \numberofauthors{9} %  in this sample file, there are a *total*
-% of EIGHT authors. SIX appear on the 'first-page' (for formatting
-% reasons) and the remaining two appear in the \additionalauthors section.
-%
+
 \author{
 % You can go ahead and credit any number of authors here,
 % e.g. one 'row of three' or two rows (consisting of one row of three
@@ -184,7 +157,7 @@ Marcin Paprzycki\\
 
 \maketitle
 \begin{abstract}
-Several IoT ontologies were developed to promote semantic interoperability of IoT solutions. The most notable ontology, the W3C Semantic Sensor Network (SSN), is considered an ontological foundation for diverse IoT initiatives, as OpenIoT. With characteristics similar to SSN, the ETSI Smart Appliances REFerence (SAREF) ontology emphasizes the needs of smart home solutions. Some IoT solutions rely on platform-specific ontologies and their integration requires mechanisms to align these ontologies. In this paper we describe the initial steps towards an alignment between SSN and SAREF, proposing an initial specification of the translation mappings among the main elements of the ontologies, i.e. classes, object properties and data properties. The alignment will be used in a semantic translation process leveraging the INTER-IoT project. An initial evaluation of the translation demonstrates how a wind sensor (Vaisala WM30), an example provided by the W3C, is translated from SSN to SAREF.
+Several IoT ontologies were developed to promote semantic interoperability of IoT solutions. The most notable ontology, the W3C Semantic Sensor Network (SSN), is considered an ontological foundation for diverse IoT initiatives, as OpenIoT. With characteristics similar to SSN, the Smart Appliances REFerence (SAREF) ontology emphasizes the needs of smart home solutions. Some IoT solutions rely on platform-specific ontologies and their integration requires mechanisms to align these ontologies. In this paper we describe the initial steps towards an alignment between SSN and SAREF, proposing an initial specification of the translation mappings among the main elements of the ontologies, i.e. classes, object properties and data properties. The alignment will be used in a semantic translation process leveraging the INTER-IoT project. An initial evaluation of the translation demonstrates how a wind sensor (Vaisala WM30), an example provided by the W3C, is translated from SSN to SAREF.
 \end{abstract}
 
 
@@ -221,16 +194,20 @@ Several IoT ontologies were developed to promote semantic interoperability of Io
 \keywords{Semantic interoperability, internet-of-things, ontology alignment, SAREF, W3C SSN}
 
 \section{Introduction}
-- Problem context, Goal/Requirement:\\
-- Proposal:\\
-- Validation:\\ 
-- Paper structure:\\ 
-Over the last years a number of IoT ontologies were proposed to achieve semantic interoperability of sensors in integrated IoT solutions. In this context, the W3C Semantic Sensor Network (SSN) is considered an ontological basis for the IoT, covering any application of sensors, being used as foundation by several initiatives (e.g. OpenIoT). Recently, the ETSI Smart Appliances REFerence (SAREF) ontology was developed, targeting smart home solutions. It is based on several “assets”, i.e. syntactic standards, proprietary data models and other ontologies, as W3C SSN. To enable integration among two IoT platforms, where one platform relies on SSN and the other relies on SAREF, an ontology alignment mechanism between SSN and SAREF is required. In this paper we describe the initial steps towards bi-directional semantic translation rules between SSN and SAREF. The approach makes use of ontology engineering to specify these translations. This specification will be further configured and deployed in the Inter Platform Semantic Mediator (IPSM) of the INTER-IoT project. These initial steps include the bi-directional mappings among the main elements of the ontologies, i.e. classes, object properties and data properties. An initial evaluation of the translation is presented, demonstrating how the wind sensor WM30, an example provided by the W3C, is translated from SSN to SAREF.
+
+Over the past years a number of IoT ontologies were proposed to enable semantic interoperability of sensors in integrated IoT solutions. In this context, the W3C Semantic Sensor Network (SSN) is considered an ontological foundation for the IoT, covering the application of diverse types of sensors, widely used by several initiatives, as OpenIoT and WSSN \cite{Ganzha2016a}. 
+Recently, the Smart Appliances REFerence (SAREF) ontology was developed \cite{Daniele2015}, targeting smart appliances (e.g. smart ovens and refrigerators), created in close interaction with the smart home industry. It is based on 47 “semantic assets”, which include syntactic standards, proprietary data models and other ontologies, as W3C SSN. 
+
+A challenge to integrate sensor networks relying on SSN with smart appliance solutions relying on SAREF is how to align these ontologies. Therefore, an ontology alignment of SSN and SAREF is required, i.e. finding the correspondences between entities (atomic alignment) or groups of entities and sub-structures (complex alignment) \cite{Ganzha2015}. In particular, IoT platforms can benefit from these ontology alignments when they need to interoperate with other IoT platforms relying on different ontologies. To enable integration among two IoT platforms, where one platform relies on SSN and the other relies on SAREF, a semantics translation approach can be used to implement their alignments.  
+
+In this paper we describe the initial steps towards bi-directional semantic translation rules between SSN and SAREF. We adopted a software engineering methodology including specification and implementation phases. Here we described the specification of the mappings among the main elements for the semantic translations from SSN to SAREF. This specification will be used for further configuration and deployment in the Inter-Platform Semantic Mediator (IPSM) of the INTER-IoT project (\url{www.inter-iot-project.eu}). An evaluation of these initial mappings is presented, demonstrating how the wind sensor WM30, an example provided by the W3C, is translated from SSN to SAREF. The semantics of the generated ontology is verified whether was maintained or lost after the simulations of the translations. 
+
+Section 2 describes the background research, including an overview of the IPSM architecture, the SSN and SAREF ontologies. Section 3 describes the methodology used for the development of the semantic translations. Section 4 introduces the mappings from SSN to SAREF, describes the evaluation of the mappings and discusses about issues found. Section 5 concludes this work by presenting lessons learned and future work. 
 
 \section{BACKGROUND}
 
 \subsection{INTER-IoT semantic mediator}
-The H2020 project Interoperability of Heterogeneous IoT Platforms (INTER-IoT) [1, 2] is currently developing the  Inter-Platform Semantic Mediator (IPSM) tool. The following tasks are executed as part of the IPSM design and implementationto:  (2) develop a central modular ontology, consisting of a core IoT ontology and domain specific modules, (3) preparealignments between ontologies of communicating artefacts and the central ontology,  (4) use the alignments for translations, and (5) establish a multi-channel (1-1, 1-many, many-1) communication architecture that will facilitate translations in all needed contexts. While complete ontologies are used to “build semantic understanding”, only conversation-specific alignments are stored and used for actual translations. Figure \ref{fig:IPSM} illustrates IPSM architecture. Ontology alignments and translation channels can be managed and ontology reconciliation  through the REST Manager.
+The H2020 project Interoperability of Heterogeneous IoT Platforms (INTER-IoT) \cite{Ganzha2016,Ganzha2017a} is currently developing the  Inter-Platform Semantic Mediator (IPSM) tool. The following tasks are executed as part of the IPSM design and implementationto:  (2) develop a central modular ontology, consisting of a core IoT ontology and domain specific modules, (3) preparealignments between ontologies of communicating artefacts and the central ontology,  (4) use the alignments for translations, and (5) establish a multi-channel (1-1, 1-many, many-1) communication architecture that will facilitate translations in all needed contexts. While complete ontologies are used to “build semantic understanding”, only conversation-specific alignments are stored and used for actual translations. Figure \ref{fig:IPSM} illustrates IPSM architecture. Ontology alignments and translation channels can be managed and ontology reconciliation  through the REST Manager.
 
 IPSM core: Channel Manager, Semantic Translation Channels, Alignment Applicators \\
 IPSM alignments repository: I/O Alignments, Converters \\
@@ -250,8 +227,8 @@ Ontology alignment – semantic translations [3]
 Semantic translation supported by IPSM uses ontology alignments that are specified in a dedicated format….. 
 
 
-\subsection{W3C Semantic Sensor Network}
-The SSN ontology is an ontology developed by W3C and the last version was published in 2011 in the official URL (https://www.w3.org/2005/Incubator/ssn/ssnx/ssn). It provides a framework to describe sensors, devices, observations and related concepts, enabling reasoning either about individual sensors as well as about the connection of a set of sensors. 
+\subsection{W3C Semantic Sensor Network (SSN)}
+The SSN ontology \cite{Compton2012} is an ontology developed by W3C and the last version was published in 2011 in the official URL (\url{https://www.w3.org/2005/Incubator/ssn/ssnx/ssn}). It provides a framework to describe sensors, devices, observations and related concepts, enabling reasoning either about individual sensors as well as about the connection of a set of sensors. 
 
 A \textit{Sensing Device} is a sensor that reports measurements and observations of real world phenomena. A sensor is different in nature from other types of devices, e.g. actuators, because of its event-based behavior, which requires temporal relationships. SSN enables reasoning about the measurements that can ease the development of advanced applications, for example by reasoning about sensor measurements, considering constraints as power restriction and limited memory. 
 
@@ -272,7 +249,7 @@ Observation module: represents a situation with a discrete time instant or a per
 
 Device module: device
 
-The W3C SSN Incubator Group created an example of the use of SSN by describing the Vaisala WM30 wind sensor (https://www.w3.org/2005/Incubator/ssn/ssnx/meteo/WM30.html). It describes the measurement capabilities, power supply and operating and survival properties based on the technical specification about the measurement of wind direction and speed. This example was initially reported in [4], which gives a precise description of the WM30 sensor. However, the axioms representing its main definitions and restrictions are different, following the changes in the TBox of SSN over the past years. Bellow we update these main definitions:
+The W3C SSN Incubator Group created an example of the use of SSN by describing the Vaisala WM30 wind sensor (\href{https://www.w3.org/2005/Incubator/ssn/ssnx/meteo/WM30.html}). It describes the measurement capabilities, power supply and operating and survival properties based on the technical specification about the measurement of wind direction and speed. This example was initially reported in \cite{Compton2009}, which gives a precise description of the WM30 sensor. However, the axioms representing its main definitions and restrictions are different, following the changes in the TBox of SSN over the past years. Bellow we update these main definitions:
 
 \begin{align*}
   \begin{aligned}
@@ -289,8 +266,8 @@ The W3C SSN Incubator Group created an example of the use of SSN by describing t
 \end{align*}
 These axioms represent the Vaisala WM30 as a Sensing Device (therefore a Device (System) and a Sensor), composed by (has subsystem) WM30 particular sensors for wind direction and wind speed, being able to measure (observes) wind direction (WM30\_WindDirection) and speed (WM30\_WindSpeed). 
 
-\subsection{ETSI Smart Appliances REFerence}
-The SAREF ontology [5] is a reference model that facilitates the matching of existing assets, e.g. standards, ontologies, data models and protocols, in the smart appliances domain. 
+\subsection{Smart Appliances REFerence (SAREF)}
+The SAREF ontology \cite{Daniele2015,Daniele2016} is a reference model that facilitates the matching of existing assets, e.g. standards, ontologies, data models and protocols, in the smart appliances domain. 
 
 The SAREF ontology provides building blocks that enables reutilization of different parts of the ontology according to specific requirements. One of these assets is SSN, which inspired the creation of the main elements of SAREF: Device, Sensor, Unit of Measure and Time/Duration. 
 
@@ -302,19 +279,15 @@ A Device offers a Service, which  is a representation of a Function to a network
 
 A Device in the SAREF ontology is also characterized by an (Energy/Power) Profile that can be used to optimize the energy efficiency in a home or office that are part of a building.
 
-
+%%%%%%%%%%%%%%%%%%% SEC: METHODOLOY %%%%%%%%%%%%%%%%%%% 
 \section{METHODOLOGY}
-The development of the bi-directional semantic translations follows a common software engineering approach, considering a specification and an implementation phase during design time. 
+The development of the semantic translations follows a common software engineering approach, considering specification and implementation phases during the design time of the ontology alignments. The specification describes in natural language the possible mappings and the involved rules, linking the original ontology to the generated ontology. Our methodology is based on common approach of model-driven engineering to specify transformations from a language meta-model to another, which is similar to syntactic interoperability standards' transformations (e.g. EDXL-TEP and HL7 \footnote{\url{http://docs.oasis-open.org/emergency/TEP-HL7v2-transforms/v1.0/TEP-HL7v2-transforms-v1.0.html}}). Therefore, we produced an initial documentation regarding the classes and object properties of both ontologies and their possible relations, analyzing each class/object property according to the definitions. In particular, the DUL ontology used by SSN also supported our ontological analysis of the terms and their intended concepts, serving as foundations for the main classes, e.g. \textit{ssn:SensingDevice} is a \textit{DUL:PhysicalObject} and a \textit{DUL:DesignedArtifact}.
 
-Specification: 
+Similar to software engineering, the ontology alignments can be implemented in different ways. In our prior work we surveyed tools for ontology alignment [Ref.XX], describing the conceptual differences of alignment, matching, merging, mapping and translation. This approach enables to (re)use the specification for different strategies of ontology alignments’ implementation. One type of implementation that we shall use is the configuration of the alignments through the IPSM mechanism from the INTER-IoT project. 
 
-Implementation: configuration within IPSM.
+In this paper we present part of the specification, referring to the semantic translation from SSN to SAREF. As first evaluation of this specification, we simulate an unidirectional semantic translation from WM30 ontology, represented as an extension of SSN, to an ontology represented as SAREF. In general, the result from the translations must represent the WM30 wind sensor with SAREF, keeping similar semantics of the original. 
 
-This approach enables to (re)use the specification for different strategies of ontology alignments’ implementation, e.g. matching, mapping, and merging. In this paper we present part of the specification, referring to the unidirectional semantic translation from SSN to SAREF.
-
-As first evaluation of this specification, we simulate an unidirectional semantic translation from WM30 ontology, represented as an extension of SSN, to an ontology represented as SAREF. In general, the result from the translations must represent the WM30 wind sensor with SAREF, keeping similar semantics of the original. 
-
-Therefore, the goal of this evaluation is to check the semantic similarity between the original and the final ontologies. Here we used an approach based on competency questions to measure this similarity. A list of competency questions is presented and each question is responded by querying the elements (classes, properties and instances) of both ontologies. The responses are compared to verify whether the semantics is maintained after executing the translation. Intentionally, the competency questions were conceived according to the expressiveness of the SSN WM30 ontology, targeting its main elements, as the different measurement capabilities illustrated in the technical specifications (Figure \ref{fig:WM30specifications}).
+Therefore, the goal of this evaluation is to check the semantic similarity between the original and the final ontologies. Here we used an approach based on competency questions to measure this similarity. A list of competency questions is presented and each question is responded by querying the elements (classes, properties and instances) of both ontologies. The responses are compared to verify whether the semantics is maintained after executing the translation. Intentionally, the competency questions were conceived according to the expressiveness of the SSN WM30 ontology, targeting its main elements, as the different measurement capabilities illustrated in the technical specifications (Figure \ref{fig:WM30specifications}). For each question, at first we answered the question based on the original ontology (in SSN) and, then, we answered the same question for the generated ontology (SAREF). Second, we compare whether the semantics of the response is similar to each other, i.e. if the semantics is lost or maintained. 
 
 \begin{figure}[h!]
 \centering
@@ -324,13 +297,14 @@ Therefore, the goal of this evaluation is to check the semantic similarity betwe
 \end{figure}
 
 Competency questions: 
-\\CQ01. What are the main characteristics of the Vaisala WM30 sensor? 
-\\CQ02. What is the composition of this sensor, i.e. what other devices are part of WM30?
-\\CQ03. What measurement properties this sensor provides?
-\\CQ04. What are the accuracy, delay distance, starting threshold and damping ratio of WMS30 wind direction sensors? \\CQ05. What measurement range constraints differentiate these types of wind direction sensors?
-\\CQ06. What are the distance constant, starting threshold and transducer output of wind speed sensors? 
-\\CQ07. What are the ranges of accuracy and condition ranges  constraints differentiate these types of wind speed sensors?
-\\CQ08. What is the characteristic transfer function of WM30?
+\\\textbf{CQ01.} What are the main characteristics of the Vaisala WM30 sensor? 
+\\\textbf{CQ02.} What is the composition of this sensor, i.e. what other devices are part of WM30?
+\\\textbf{CQ03.} What measurement properties this sensor provides?
+\\\textbf{CQ04.} What are the accuracy, delay distance, starting threshold and damping ratio of WMS30 wind direction sensors? 
+\\\textbf{CQ05.} What measurement range constraints differentiate these types of wind direction sensors?
+%\\CQ06. What are the distance constant, starting threshold and transducer output of wind speed sensors? 
+%\\CQ07. What are the ranges of accuracy and condition ranges  constraints differentiate these types of wind speed sensors?
+%\\CQ08. What is the characteristic transfer function of WM30?
 
 \section{SEMANTIC TRANSLATIONS}
 
@@ -414,10 +388,7 @@ for each ssn_property in ssn_sensingDevice.ssn:observes
 \end{lstlisting}
 
 \subsection{Evaluation}
-As described in the methodology section, an execution of the mappings presented above was simulated having the WM30 wind sensor example (according to SSN) as input. The output of this translation, i.e. the WM30 ontology according to SAREF, in OWL, was produced and made available (\url{https://github.com/jonimoreira/SSN-SAREF}). The answers of the competency questions, listed in methodology section, were produced by navigating and querying (SPARQL) this generated ontology with support of an ontology editor (Protegé and TopBraid Composer). 
-
-For each question, at first we answered the question based on the original ontology (in SSN) and, then, we answered the same question for the generated ontology (SAREF). Second, we compare whether the semantics of the response is similar to each other, ranking this similarity with four possible values: (1) cannot answer; (2) semantics is lost, representing an important gap; (3) semantics is lost, but covers the main elements; (4) semantics is totally maintained. At last, the ranks are summed and the overall maintained semantics is calculated.
-The competency questions were responded as follows:
+As described in the methodology section, an execution of the mappings presented above was simulated having the WM30 wind sensor example (according to SSN) as input. The output of this translation, i.e. the WM30 ontology according to SAREF, in OWL, was produced and made available (\url{https://github.com/jonimoreira/SSN-SAREF}). The answers of the competency questions, listed in methodology section, were produced by navigating and querying (SPARQL) this generated ontology with support of an ontology editor (Protegé and TopBraid Composer). The competency questions were responded as follows:
 
 \textbf{CQ01.} In the original ontology (SSN), the main characteristics of the Vaisala WM30 sensor can be extracted by starting the navigation in the \textit{WM30:Vaisala\_WM30} element, which is a \textit{ssn:SensingDevice}, inheriting the properties from \textit{ssn:Device} and \textit{ssn:Sensor}. Besides, the \textit{rdfs:comment} with a general description of this wind sensor, it represents that the sensor is composed by two sensors (\textit{WM30:WM30\_WindDirection} and \textit{WM30:WM30\_WindSpeed)}, one for wind direction and another for wind speed (both \textit{ssn:Sensor}). Moreover, WM30 sensor can measure (observe) the types (properties) \textit{WM30:WindDirection} and \textit{WM30:WindSpeed} (both \textit{ssn:Property}). Figure \ref{fig:SSN_SystemProperties} illustrates these properties.
 
@@ -428,7 +399,7 @@ The competency questions were responded as follows:
 \label{fig:SSN_SystemProperties}
 \end{figure}
 
-In the generated ontology (SAREF), according to M01, \textit{WM30:Vaisala\_WM30} element is created as a \textit{saref:Sensor}. A \textit{saref:SensingFunction} is created and the \textit{WM30:Vaisala\_WM30} element linked to it through \textit{saref:hasFunction} property. According to M02, the composition of the sensor \textit{WM30:Vaisala\_WM30} is derived from the \textit{ssn:hasSubSystem} properties, i.e. \textit{WM30:WM30\_WindDirection} and \textit{WM30:WM30\_WindSpeed}, as depict in Figure \ref{fig:SSN_SystemProperties}. M03 produced the measurement properties of the sensor from the \textit{ssn:observes element}, i.e. \textit{saref:measuresProperty} to \textit{WM30:WindDirection} and \textit{WM30:WindSpeed}. Figure \ref{fig:SSN_SystemProperties} illustrates the result \textit{WM30:Vaisala\_WM30)} as a \textit{saref:Sensor}. Therefore, by navigating to \textit{WM30:Vaisala_WM30} (\textit{saref:Sensor}) it is possible to respond this competency question in a similar way from the original, i.e. the semantics is completely maintained, ranked as 4.  
+In the generated ontology (SAREF), according to M01, \textit{WM30:Vaisala\_WM30} element is created as a \textit{saref:Sensor}. A \textit{saref:SensingFunction} is created and the \textit{WM30:Vaisala\_WM30} element linked to it through \textit{saref:hasFunction} property. According to M02, the composition of the sensor \textit{WM30:Vaisala\_WM30} is derived from the \textit{ssn:hasSubSystem} properties, i.e. \textit{WM30:WM30\_WindDirection} and \textit{WM30:WM30\_WindSpeed}, as depict in Figure \ref{fig:SSN_SystemProperties}. M03 produced the measurement properties of the sensor from the \textit{ssn:observes element}, i.e. \textit{saref:measuresProperty} to \textit{WM30:WindDirection} and \textit{WM30:WindSpeed}. Figure \ref{fig:SSN_SystemProperties} illustrates the result \textit{WM30:Vaisala\_WM30)} as a \textit{saref:Sensor}. Therefore, by navigating to \textit{WM30:Vaisala\_WM30}, a \textit{saref:Sensor}, it is possible to respond this competency question in a similar way from the original, i.e. the semantics is completely maintained.  
 
 \begin{figure}[h!]
 \centering
@@ -437,42 +408,45 @@ In the generated ontology (SAREF), according to M01, \textit{WM30:Vaisala\_WM30}
 \label{fig:SAREF_Sensor_WM30}
 \end{figure}
 
-\textbf{CQ02.} In the original ontology (SSN), the composition of Vaisala WM30 sensor can be extracted by navigating from the \textit{WM30:Vaisala\_WM30} element to the \textit{ssn:hasSubSystem} properties, i.e. \textit{WM30:WM30\_WindDirection} and \textit{WM30:WM30\_WindSpeed}, both \textit{ssn:Sensor}. In particular, the WM30 wind direction sensor (\textit{WM30:WM30\_WindDirection}) can have one wiper (\textit{WM30:WMS301}) or two (\textit{WM30:WMS302}), which has greater measurement range. The same structure is generated in SAREF, resulted from M02, having \textit{WM30:WM30\_WindDirection} and \textit{WM30:WM30\_WindSpeed} created as \textit{saref:Device}, linked through the object property \textit{saref:consistsOf}. It is possible to achieve the same structure of \textit{WM30:WM30\_WindDirection} and \textit{WM30:WM30\_WindSpeed}, including the specialization to one or two wipes, by navigating from \textit{WM30:Vaisala\_WM30} (\textit{saref:Sensor}) through \textit{saref:consistsOf}. Therefore, this competency question is responded in a similar way from the original, i.e. the semantics is completely maintained, ranked as 4.
+\textbf{CQ02.} In the original ontology (SSN), the composition of Vaisala WM30 sensor can be extracted by navigating from the \textit{WM30:Vaisala\_WM30} element to the \textit{ssn:hasSubSystem} properties, i.e. \textit{WM30:WM30\_WindDirection} and \textit{WM30:WM30\_WindSpeed}, both \textit{ssn:Sensor}. In particular, the WM30 wind direction sensor (\textit{WM30:WM30\_WindDirection}) can have one wiper (\textit{WM30:WMS301}) or two (\textit{WM30:WMS302}), which has greater measurement range. The same structure is generated in SAREF, resulted from M02, having \textit{WM30:WM30\_WindDirection} and \textit{WM30:WM30\_WindSpeed} created as \textit{saref:Device}, linked through the object property \textit{saref:consistsOf}. It is possible to achieve the same structure of \textit{WM30:WM30\_WindDirection} and \textit{WM30:WM30\_WindSpeed}, including the specialization to one or two wipes, by navigating from \textit{WM30:Vaisala\_WM30} (\textit{saref:Sensor}) through \textit{saref:consistsOf}. Therefore, this competency question is responded in a similar way from the original, i.e. the semantics is completely maintained.
 
-\textbf{CQ03.} In the original ontology (SSN), the measurement properties of Vaisala WM30 sensor can be extracted by navigating from the \textit{WM30:Vaisala\_WM30} element to the ssn:observes properties, i.e. \textit{WM30:WindDirection} and \textit{WM30:WindSpeed}, both \textit{ssn:Property}. WM30 original example also uses an ontology of Quantity Kinds (\url{http://purl.oclc.org/NET/ssnx/qu}) through the element \textit{qu:QuantityKind} as \textit{ssn:Property}. This element provides a taxonomy of quality dimensions, making use of \textit{dim:Angle} for \textit{WM30:WindDirection} and \textit{dim:VelocityOrSpeed} for \textit{WM30:WindSpeed}. The same structure is generated in SAREF, resulted from M03, as \textit{saref:Property}. Therefore, similar to CQ01 and CQ02, the semantics is completely maintained, ranked as 4.
+\textbf{CQ03.} In the original ontology (SSN), the measurement properties of Vaisala WM30 sensor can be extracted by navigating from the \textit{WM30:Vaisala\_WM30} element through the \textit{ssn:observes} properties, i.e. \textit{WM30:WindDirection} and \textit{WM30:WindSpeed}, both \textit{ssn:Property}. WM30 original example also uses an ontology of Quantity Kinds (\url{http://purl.oclc.org/NET/ssnx/qu}) through the element \textit{qu:QuantityKind} as \textit{ssn:Property}. This element provides a taxonomy of quality dimensions, making use of \textit{dim:Angle} for \textit{WM30:WindDirection} and \textit{dim:VelocityOrSpeed} for \textit{WM30:WindSpeed}. The same structure is generated in SAREF, resulted from M03, as \textit{saref:Property}. Therefore, similar to CQ01 and CQ02, the semantics is completely maintained.
 
-\textbf{CQ04.} In the original ontology (SSN), ...
-This question couldn't be responded with the generated ontology because there are no mappings from ssn:hasMeasurementCapability and this conceptualization  is a gap in SAREF.  
+\textbf{CQ04.} The specification of the WMS30 wind direction sensor (Figure \ref{fig:WM30specifications}) describes the accuracy, delay distance, starting threshold and damping ratio of this sensor. For example, accuracy can vary from -3 to 3 degrees, while the delay distance is 0.6 meters and the starting threshold is lower than 1.0 m/s. 
+In the original ontology (SSN), the measurement capabilities of each wind direction and speed components  of Vaisala WM30 sensor can be extracted by navigating from the \textit{WM30:Vaisala\_WM30} element through the \textit{ssn:hasSubSystem} properties, i.e. \textit{WM30:WM30\_WindDirection} and \textit{WM30:WM30\_WindSpeed}, both \textit{ssn:Sensor}, as described in CQ02. The WM30 wind direction sensor with one wiper (\textit{WM30:WMS301}) has measurement capability (\textit{ssn:hasMeasurementCapability}) a  \textit{WM30:WM30\_WindDirection\_MeasurementCapability\_WMS301} (similar for \textit{WM30:WMS302}). A \textit{WM30:WM30\_WindDirection\_MeasurementCapability\_WMS301} is a \textit{WM30:WM30\_WindDirection\_MeasurementCapability}, which describes the ranges supported (restrictions) for accuracy, delay distance, starting threshold and damping ratio, illustrated in the axioms of Figure \ref{fig:SSN_MeasurementCapability}. \texit{ssn:MeasurementCapability} is a \textit{ssn:Property}. 
 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.87]{SSN_MeasurementCapability}
-\caption{Vaisala WM30 \textit{Sensing Device}} 
+\caption{Vaisala WM30 wind direction measurement capabilities} 
 \label{fig:SSN_MeasurementCapability}
 \end{figure}
 
-CQ05.
+In the generated ontology (SAREF), these measurement capabilities were lost because there is not a structure similar to \textit{ssn:MeasurementCapability}) in SAREF, thus, no mappings were added to consider the  \textit{ssn:hasMeasurementCapability}) object property of \textit{ssn:Sensor}. Therefore, this question could not be responded with the generated ontology (semantics was lost).  
 
-CQ06.
+\textbf{CQ05.} In the original ontology (SSN), the measurement range constraints differentiating 301 and 302 wind direction sensors can be extracted by analyzing the restrictions of \textit{WM30:WM30\_WindDirection\_MeasurementCapability\_WMS301} and \textit{WM30:WM30\_WindDirection\_MeasurementCapability\_WMS302} regarding the object property \textit{ssn:hasMeasurementProperty}. The first restricts the measurement range from 0 to 355 degrees, while the second restricts from 0 to 360 degrees. This question could not be responded with the generated ontology because of the same reason described in CQ04, i.e. the absence of \textit{ssn:MeasurementCapability} in SAREF and no mappings on the \textit{ssn:hasMeasurementCapability} object property.
 
-CQ07. 
 
+%%%%%%%%%%%%%%%%%%% SEC: DISCUSSION %%%%%%%%%%%%%%%%%%% 
 \subsection{Discussion}
 
-Some issues were detected in this example:
-\\First, saref:Sensor provides subclasses that are types of sensors, as saref:SmokeSensor and saref:TemperatureSensor, which have the properties of saref:hasFunction and saref:measuresProperty, linking the type of the sensor with functions it has and the type of property it measures, in these cases saref:Smoke and saref:Temperature, respectively. The correct implementation for the wind sensor would create the subclass saref:WindSensor, with function sensing and measuring the properties of wind direction and wind speed. 
+The evaluation above demonstrated that from 5 competency questions only 3 (60\%) could be answered with the mappings described in this paper. The main issue identified is the lack of a naive element in SAREF to describe the measurement capabilities  of a sensor, which SSN enables through the \textit{ssn:hasMeasurementCapability}) object property of \textit{ssn:Sensor}. To cope with this issue we suggest that saref:Function should implement a similar object property (\textit{saref:hasMeasurementCapability}) and \textit{ssn:MeasurementCapability} is absorbed by SAREF as specialization of \textit{saref:Property}. 
+
+A conceptual issue in SSN was identified regarding the element ssn:Sensor. The description of this element states that it “allows sensors, methods, instruments, systems, algorithms and process chains as the process used of an observation (…) they are all grouped under the term sensor”. Thus, is describes that ssn:Sensor is a system, but it was not implemented as a specialization of ssn:System. In thi way, ssn:Sensor could also inherit the composition relationship (ssn:hasSubSystem) and, thus, can represent a set of sensors. 
+
+One issue identified in WM30 ontology regards the \textit{WM30:Vaisala\_WM30} composition of wind direction and speed sensors. Both \textit{WM30:WM30\_WindDirection} and \textit{WM30:WM30\_WindSpeed} are \textit{ssn:Sensor}, but the composition relationship (\textit{ssn:hasSubSystem}) is applied from a \textit{ssn:System} to a \textit{ssn:System}. Since \textit{ssn:Sensor} is not a \textit{ssn:System}, thus the mapping M02 should consider not only \textit{ssn:System} within \textit{ssn:hasSubSystem} property. 
+
+A practical issue when mapping to SAREF is to consider extending the taxonomy of sensor "types" by creating a new element when the type does not exist in SAREF. For example, smoke and temperature sensors are classified as \textit{saref:SmokeSensor} and \texit{saref:TemperatureSensor,} respectively, having  function (\textit{saref:hasFunction}) and measure property (\textit{saref:measuresProperty}), linking the type of the sensor with functions it has and the type of property it measures (\texit{saref:Smoke} and \textit{saref:Temperature}. Thus, in our example, the correct implementation for the wind sensor is to create the subclass \textit{saref:WindSensor}, with function sensing and measuring the properties of wind direction and wind speed, which is guaranteed by M01 \cite{bowman:reasoning,
+clark:pct, braams:babel, herlihy:methodology}. 
 
 
-SSN: why ssn:Sensor is not a ssn:System? At first, the dc:source property of ssn:Sensor states that: “allows sensors, methods, instruments, systems, algorithms and process chains as the process used of an observation (…) they are all grouped under the term sensor”. Second, by having ssn:Sensor as sub class of ssn:System, it inherits the composition relationship (ssn:hasSubSystem) and, thus, can represent a set of sensors.  
-
-The problem when transforming WM30:WM30\_WindDirection as ssn:Sensor 
-
-saref:WindSensor
-WM30:WindSensingFunction
-
-
-
+%%%%%%%%%%%%%%%%%%% SEC: CONCLUSIONS %%%%%%%%%%%%%%%%%%% 
 \section{CONCLUSIONS}
+
+In this paper we described the initial mappings between SSN and SAREF towards their ontological alignments to enable their semantic integration. In particular, the mappings presented here focused in translating the main parts of a sensor ontology, i.e. the elements about sensor, device, composition and functions. Here we detailed three mappings to cover these properties, showing how to produce a SAREF ontology from a SSN ontology through a semantic translation mechanism. An evaluation was performed to validate the initial specification produced, which used an ontology of wind sensor in SSN (WM30, provided by W3C) as input and a SAREF-based ontology. The results showed a coverage of 60\% of semantics maintained from the original ontology to the generated one. Th main issue identified is the lack of measurement capabilities in SAREF to represent properties of the the property measured, i.e. the meta-properties of a measurement. For example, the WM30 wind sensor measures the property wind direction, which has properties accuracy, delay distance, starting threshold and damping ratio. 
+
+From this initial iteration on the development of the bi-directional semantic translations we can conclude that the mappings presented here reflect the foundations of the ontology alignment between SSN and SAREF. Therefore, it already enables a level of semantic interoperability between sensors' networks (SSN) and smart appliances (SAREF). Future work includes the acquisition and/or generation of test datasets in both SSN and SAREF, giving emphasis to the requirements for an early warning system \cite{Moreira2017} to detect accidents in the port of Valencia. New mappings will be created according to this scope with incremental evaluations, using the test datasets to verify whether the semantic interoperability is improved or not.  
+
 
 %ACKNOWLEDGMENTS are optional
 \section{Acknowledgments}
@@ -483,7 +457,7 @@ This section is optional.
 % initial runs of your .tex file to
 % produce the bibliography for the citations in your paper.
 \bibliographystyle{abbrv}
-\bibliography{sigproc}  % sigproc.bib is the name of the Bibliography in this case
+\bibliography{Semantics2017_references}  % sigproc.bib is the name of the Bibliography in this case
 % You must have a proper ".bib" file
 %  and remember to run:
 % latex bibtex latex latex
